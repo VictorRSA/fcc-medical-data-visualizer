@@ -2,7 +2,6 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
 
 # Import data
 df = pd.read_csv('medical_examination.csv')
@@ -59,13 +58,11 @@ def draw_cat_plot():
 # Draw Heat Map
 def draw_heat_map():
     # Clean the data
-    df_heat = df[
-      (df['ap_lo'] <= df['ap_hi'])
-      & (df['height'] >= df['height'].quantile(0.025))
-      & (df['height'] <= df['height'].quantile(0.975))
-      & (df['weight'] >= df['weight'].quantile(0.025))
-      & (df['weight'] <= df['weight'].quantile(0.975))
-      ]
+    df_heat = df[(df['ap_lo'] <= df['ap_hi'])
+                 & (df['height'] >= df['height'].quantile(0.025))
+                 & (df['height'] <= df['height'].quantile(0.975))
+                 & (df['weight'] >= df['weight'].quantile(0.025))
+                 & (df['weight'] <= df['weight'].quantile(0.975))]
 
     # Calculate the correlation matrix
     corr = df_heat.corr()
@@ -73,23 +70,25 @@ def draw_heat_map():
     # Generate a mask for the upper triangle
     mask = np.zeros_like(corr)
     mask[np.triu_indices_from(mask)] = True
-    
+
     # Set up the matplotlib figure
-    fig, ax = plt.subplots(figsize=(12,12))
+    fig, ax = plt.subplots(figsize=(12, 12))
 
     # Draw the heatmap with 'sns.heatmap()'
     ax = sns.heatmap(
-      corr,
-      linewidths=.5,
-      annot=True,
-      fmt='.1f',
-      mask=mask,
-      square=True,
-      center=0,
-      vmin=-0.1,
-      vmax=0.25,
-      cbar_kws={'shrink':.45, 'format':'%.2f'}
-      )
+        corr,
+        linewidths=.5,
+        annot=True,
+        fmt='.1f',
+        mask=mask,
+        square=True,
+        center=0,
+        vmin=-0.1,
+        vmax=0.25,
+        cbar_kws={
+            'shrink': .45,
+            'format': '%.2f'
+        })
 
     # Do not modify the next two lines
     fig.savefig('heatmap.png')
