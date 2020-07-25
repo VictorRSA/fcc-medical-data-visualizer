@@ -1,7 +1,27 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+#########################################
+# Created by: Joao Pedro Peters Barbosa #
+#                                       #
+# github: https://github.com/Jppbrbs    #
+# email: jpptrs@gmail.com               #
+#                                       #
+# Date: Jul/2020                        #
+#########################################
+
+
+"""
+freeCodeCamp Project3 - Data Analysis with Python Course
+"""
+
+
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 
 # Import data
 df = pd.read_csv('medical_examination.csv')
